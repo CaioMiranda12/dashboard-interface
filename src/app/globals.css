@@ -3,3 +3,7 @@
 body {
   background-color: #04141C;
 }
+
+input {
+  outline: none;
+}
