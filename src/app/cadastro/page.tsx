@@ -1,4 +1,4 @@
-import { Label } from "@/components/label"
+
 
 
 export default function Cadastro() {
@@ -6,14 +6,40 @@ export default function Cadastro() {
     <div>
       <h1 className="text-green-300 font-bold text-xl text-center mt-8 mb-5">{"<FinDash$/>"}</h1>
 
-      <div className="w-10/12 sm:max-w-screen-lg mx-auto">
+      <div className="w-10/12 sm:max-w-screen-lg mx-auto border border-gray-300 px-4 py-8">
         <h1 className="text-white text-3xl mb-4 sm:text-4xl">Criar conta</h1>
 
         <div className="flex flex-col gap-4">
-          <Label name="Nome" />
-          <Label name="E-mail" />
-          <Label name="Senha" />
-          <Label name="Confirmar senha" />
+          <div className="flex flex-col">
+            <label className="text-white mb-2">Nome</label>
+            <input
+              className="border border-white h-10 rounded-lg text-white text-sm px-2 sm:h-14 sm:text-lg"
+              type="text" />
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-white mb-2">E-mail</label>
+            <input
+              className="border border-white h-10 rounded-lg text-white text-sm px-2 sm:h-14 sm:text-lg"
+              type="text" />
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-white mb-2">Senha</label>
+            <input
+              className="border border-white h-10 rounded-lg text-white text-sm px-2 sm:h-14 sm:text-lg"
+              type="password" />
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-white mb-2">Confirmar senha</label>
+            <input
+              className="border border-white h-10 rounded-lg text-white text-sm px-2 sm:h-14 sm:text-lg"
+              type="password" />
+          </div>
+
+
+
         </div>
 
         <button
