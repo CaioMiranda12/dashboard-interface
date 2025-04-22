@@ -40,21 +40,28 @@ export default function Cadastro() {
     resolver: yupResolver(schema),
   })
   const onSubmit = async (data: userData) => {
-    const { status } = await api.post('/users', {
-      name: data.name,
-      email: data.email,
-      password: data.password
-    },
-      {
-        validateStatus: () => true
-      })
+    try {
+      const { status } = await api.post('/users', {
+        name: data.name,
+        email: data.email,
+        password: data.password
+      },
+        {
+          validateStatus: () => true
+        })
 
-    if (status === 201 || status === 200) {
-      toast.success('Cadastro criado com sucesso')
-    }
+      if (status === 201 || status === 200) {
+        toast.success('Cadastro criado com sucesso')
+      }
 
-    else if (status === 409) {
-      toast.error('E-mail já cadastrado! Faça login para continuar')
+      else if (status === 409) {
+        toast.error('E-mail já cadastrado! Faça login para continuar')
+      }
+      else {
+        throw new Error();
+      }
+    } catch (error) {
+      toast.error('Falha no sistema! Tente novamente')
     }
   }
 
