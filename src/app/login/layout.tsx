@@ -18,12 +18,8 @@ const geistMono = Geist_Mono({
 
 export default function LoginLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-br">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <>
+      {children}
+    </>
   )
 }

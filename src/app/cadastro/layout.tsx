@@ -18,12 +18,8 @@ const geistMono = Geist_Mono({
 
 export default function CadastroLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-br">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <>
+      {children}
+    </>
   )
 }

@@ -1,7 +1,55 @@
+'use client'
 
-
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { toast } from "react-toastify";
+import { api } from "@/services/api";
+interface loginUserData {
+  email: string;
+  password: string;
+}
 
 export default function Login() {
+  const schema = yup.object({
+    email: yup.string().email('Digite um e-mail válido').required('O e-mail é obrigatório'),
+    password: yup.string().min(6, 'A senha deve ter pelo menos 6 caracteres').required('Digite uma senha')
+  }).required()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  })
+
+  const onSubmit = async (data: loginUserData) => {
+    try {
+      const { status } = await api.post('/auth', {
+        email: data.email,
+        password: data.password
+      },
+        {
+          validateStatus: () => true
+        })
+
+      if (status === 201 || status === 200) {
+        toast.success('Cadastro criado com sucesso')
+      }
+
+      else if (status === 409) {
+        toast.error('E-mail já cadastrado! Faça login para continuar')
+      }
+      else {
+        throw new Error();
+      }
+    } catch (error) {
+      toast.error('Falha no sistema! Tente novamente')
+    }
+  }
+
+
   return (
     <div>
       <h1 className="text-green-300 font-bold text-xl text-center mt-8 mb-5">{"<FinDash$/>"}</h1>
@@ -9,13 +57,9 @@ export default function Login() {
       <div className="w-10/12 sm:max-w-screen-lg mx-auto border border-gray-300 px-4 py-8">
         <h1 className="text-white text-3xl mb-4 sm:text-4xl">Faça o seu login</h1>
 
-        <form className="flex flex-col gap-4">
-          <div className="flex flex-col">
-            <label className="text-white mb-2">Nome</label>
-            <input
-              className="border border-white h-10 rounded-lg text-white text-sm px-2 sm:h-14 sm:text-lg"
-              type="text" />
-          </div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4">
 
           <div className="flex flex-col">
             <label className="text-white mb-2">E-mail</label>

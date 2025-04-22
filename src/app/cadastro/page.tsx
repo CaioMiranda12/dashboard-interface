@@ -5,22 +5,13 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 
 interface userData {
   name: string;
   email: string;
   password: string;
-}
-
-async function createUser(data: userData) {
-  const response = await api.post('/users', {
-    name: data.name,
-    email: data.email,
-    password: data.password
-  })
-
-  console.log(response)
 }
 
 
@@ -121,9 +112,14 @@ export default function Cadastro() {
           >
             Criar conta
           </button>
-
         </form>
-
+        <p className="text-white font-semibold mt-6">
+          Já possui conta? {' '}
+          <Link
+            href={'/login'}
+            className="underline"
+          >Clique aqui.</Link>
+        </p>
 
       </div>
     </div>
