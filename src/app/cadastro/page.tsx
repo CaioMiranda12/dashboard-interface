@@ -1,7 +1,10 @@
 'use client'
 
 import { api } from "@/services/api";
-import { FormEvent, useState } from "react";
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+
 
 interface userData {
   name: string;
@@ -21,21 +24,28 @@ async function createUser(data: userData) {
 
 
 export default function Cadastro() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const schema = yup.object({
+    name: yup.string().required('O nome é obrigatório'),
+    email: yup.string().email('Digite um e-mail válido').required('O e-mail é obrigatório'),
+    password: yup.string().min(6, 'A senha deve ter pelo menos 6 caracteres').required('Digite uma senha'),
+    confirmPassword: yup.string().oneOf([yup.ref('password')], 'As senhas devem ser iguais').required('Confirme sua senha')
+  }).required()
 
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault()
-
-    const createdUser = await createUser({
-      name: name,
-      email: email,
-      password: password
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  })
+  const onSubmit = async (data: userData) => {
+    const response = await api.post('/users', {
+      name: data.name,
+      email: data.email,
+      password: data.password
     })
 
-    console.log(createdUser)
+    console.log(response)
   }
 
   return (
@@ -46,16 +56,16 @@ export default function Cadastro() {
         <h1 className="text-white text-3xl mb-4 sm:text-4xl">Criar conta</h1>
 
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-4">
           <div className="flex flex-col">
             <label className="text-white mb-2">Nome</label>
             <input
               className="border border-white h-10 rounded-lg text-white text-sm px-2 sm:h-14 sm:text-lg"
               type="text"
-              value={name}
-              onChange={e => setName(e.target.value)}
+              {...register("name")}
             />
+            <p className="text-red-400 font-semibold mt-3">{errors.name?.message}</p>
           </div>
 
           <div className="flex flex-col">
@@ -63,9 +73,9 @@ export default function Cadastro() {
             <input
               className="border border-white h-10 rounded-lg text-white text-sm px-2 sm:h-14 sm:text-lg"
               type="text"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+              {...register("email")}
             />
+            <p className="text-red-400 font-semibold mt-3">{errors.email?.message}</p>
           </div>
 
           <div className="flex flex-col">
@@ -73,17 +83,19 @@ export default function Cadastro() {
             <input
               className="border border-white h-10 rounded-lg text-white text-sm px-2 sm:h-14 sm:text-lg"
               type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+              {...register("password")}
             />
-
+            <p className="text-red-400 font-semibold mt-3">{errors.password?.message}</p>
           </div>
 
           <div className="flex flex-col">
             <label className="text-white mb-2">Confirmar senha</label>
             <input
               className="border border-white h-10 rounded-lg text-white text-sm px-2 sm:h-14 sm:text-lg"
-              type="password" />
+              type="password"
+              {...register("confirmPassword")}
+            />
+            <p className="text-red-400 font-semibold mt-3">{errors.confirmPassword?.message}</p>
           </div>
 
           <button
