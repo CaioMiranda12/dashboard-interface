@@ -4,6 +4,7 @@ import { api } from "@/services/api";
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { toast } from "react-toastify";
 
 
 interface userData {
@@ -39,13 +40,22 @@ export default function Cadastro() {
     resolver: yupResolver(schema),
   })
   const onSubmit = async (data: userData) => {
-    const response = await api.post('/users', {
+    const { status } = await api.post('/users', {
       name: data.name,
       email: data.email,
       password: data.password
-    })
+    },
+      {
+        validateStatus: () => true
+      })
 
-    console.log(response)
+    if (status === 201 || status === 200) {
+      toast.success('Cadastro criado com sucesso')
+    }
+
+    else if (status === 409) {
+      toast.error('E-mail já cadastrado! Faça login para continuar')
+    }
   }
 
   return (
