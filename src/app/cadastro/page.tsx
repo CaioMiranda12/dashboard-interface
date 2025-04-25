@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { toast } from "react-toastify";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 
 interface userData {
@@ -16,6 +17,8 @@ interface userData {
 
 
 export default function Cadastro() {
+  const router = useRouter()
+
   const schema = yup.object({
     name: yup.string().required('O nome é obrigatório'),
     email: yup.string().email('Digite um e-mail válido').required('O e-mail é obrigatório'),
@@ -43,6 +46,10 @@ export default function Cadastro() {
 
       if (status === 201 || status === 200) {
         toast.success('Cadastro criado com sucesso')
+
+        setTimeout(() => {
+          router.push('/login')
+        }, 1000)
       }
 
       else if (status === 409) {

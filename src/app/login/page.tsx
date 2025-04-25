@@ -7,13 +7,15 @@ import { toast } from "react-toastify";
 import { api } from "@/services/api";
 import Link from "next/link";
 import { useUser } from "@/hooks/UserContext";
+import { useRouter } from "next/navigation";
 interface loginUserData {
   email: string;
   password: string;
 }
 
 export default function Login() {
-  const { putUserData, userData } = useUser()
+  const { putUserData } = useUser();
+  const router = useRouter();
 
   const schema = yup.object({
     email: yup.string().email('Digite um e-mail válido').required('O e-mail é obrigatório'),
@@ -42,6 +44,10 @@ export default function Login() {
     )
 
     putUserData(data)
+
+    setTimeout(() => {
+      router.push('/')
+    }, 1000)
   }
 
 
