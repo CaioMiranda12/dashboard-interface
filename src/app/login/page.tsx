@@ -6,12 +6,15 @@ import * as yup from "yup"
 import { toast } from "react-toastify";
 import { api } from "@/services/api";
 import Link from "next/link";
+import { useUser } from "@/hooks/UserContext";
 interface loginUserData {
   email: string;
   password: string;
 }
 
 export default function Login() {
+  const { putUserData, userData } = useUser()
+
   const schema = yup.object({
     email: yup.string().email('Digite um e-mail válido').required('O e-mail é obrigatório'),
     password: yup.string().min(6, 'A senha deve ter pelo menos 6 caracteres').required('Digite uma senha')
@@ -37,6 +40,8 @@ export default function Login() {
         error: 'Verifique seu e-mail e senha'
       }
     )
+
+    putUserData(data)
   }
 
 

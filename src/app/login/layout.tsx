@@ -1,3 +1,4 @@
+import { UserProvider } from "@/hooks/UserContext";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ReactNode } from "react";
 
@@ -19,7 +20,9 @@ const geistMono = Geist_Mono({
 export default function LoginLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      {children}
+      <UserProvider>
+        {children}
+      </UserProvider>
     </>
   )
 }
