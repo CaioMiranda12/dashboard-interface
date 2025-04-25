@@ -24,29 +24,18 @@ export default function Login() {
     resolver: yupResolver(schema),
   })
 
-  const onSubmit = async (data: loginUserData) => {
-    try {
-      const { status } = await api.post('/auth', {
-        email: data.email,
-        password: data.password
-      },
-        {
-          validateStatus: () => true
-        })
-
-      if (status === 201 || status === 200) {
-        toast.success('Cadastro criado com sucesso')
+  const onSubmit = async (userData: loginUserData) => {
+    const { data } = await toast.promise(
+      api.post('/auth', {
+        email: userData.email,
+        password: userData.password
+      }),
+      {
+        pending: 'Verificando seus dados',
+        success: 'Seja bem vindo(a)',
+        error: 'Verifique seu e-mail e senha'
       }
-
-      else if (status === 409) {
-        toast.error('E-mail já cadastrado! Faça login para continuar')
-      }
-      else {
-        throw new Error();
-      }
-    } catch (error) {
-      toast.error('Falha no sistema! Tente novamente')
-    }
+    )
   }
 
 
@@ -65,21 +54,30 @@ export default function Login() {
             <label className="text-white mb-2">E-mail</label>
             <input
               className="border border-white h-10 rounded-lg text-white text-sm px-2 sm:h-14 sm:text-lg"
-              type="text" />
+              type="text"
+              {...register("email")}
+            />
+            <p className="text-red-400 font-semibold mt-3">{errors.email?.message}</p>
           </div>
 
           <div className="flex flex-col">
             <label className="text-white mb-2">Senha</label>
             <input
               className="border border-white h-10 rounded-lg text-white text-sm px-2 sm:h-14 sm:text-lg"
-              type="password" />
+              type="password"
+              {...register("password")}
+            />
+            <p className="text-red-400 font-semibold mt-3">{errors.password?.message}</p>
           </div>
+
+          <button
+            type="submit"
+            className="bg-emerald-400 w-full h-12 rounded-lg mt-7 cursor-pointer font-semibold hover:bg-emerald-600 transition-all duration-300 sm:h-16 sm:text-xl"
+          >Entrar</button>
 
         </form>
 
-        <button
-          className="bg-emerald-400 w-full h-12 rounded-lg mt-7 cursor-pointer font-semibold hover:bg-emerald-600 transition-all duration-300 sm:h-16 sm:text-xl"
-        >Entrar</button>
+
       </div>
     </div>
   )
