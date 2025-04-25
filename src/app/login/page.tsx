@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { toast } from "react-toastify";
 import { api } from "@/services/api";
+import Link from "next/link";
 interface loginUserData {
   email: string;
   password: string;
@@ -73,10 +74,16 @@ export default function Login() {
           <button
             type="submit"
             className="bg-emerald-400 w-full h-12 rounded-lg mt-7 cursor-pointer font-semibold hover:bg-emerald-600 transition-all duration-300 sm:h-16 sm:text-xl"
-          >Entrar</button>
-
+          >Entrar
+          </button>
         </form>
-
+        <p className="text-white font-semibold mt-6">
+          Não possui conta? {' '}
+          <Link
+            href={'/cadastro'}
+            className="underline"
+          >Clique aqui.</Link>
+        </p>
 
       </div>
     </div>
