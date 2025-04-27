@@ -14,6 +14,7 @@ interface UserContextType {
   userData: UserData,
   putUserData: (userInfo: UserData) => Promise<void>
   loading: boolean
+  logoutUser: () => void
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -29,6 +30,11 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const putUserData = async (userInfo: UserData) => {
     setUserData(userInfo)
     localStorage.setItem('findash:userData', JSON.stringify(userInfo));
+  }
+
+  const logoutUser = () => {
+    setUserData({});
+    localStorage.removeItem('findash:userData')
   }
 
   useEffect(() => {
@@ -52,7 +58,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   }, [])
 
   return (
-    <UserContext.Provider value={{ userData, putUserData, loading }}>
+    <UserContext.Provider value={{ userData, putUserData, loading, logoutUser }}>
       {children}
     </UserContext.Provider>
   )

@@ -15,10 +15,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { CircleUserRound, Delete, Edit, LogOut, Trash2, UserPen } from "lucide-react";
+import { useUser } from "@/hooks/UserContext";
 
 
 export function Header() {
   const pathname = usePathname();
+  const { logoutUser } = useUser()
 
   if (pathname === '/cadastro' || pathname === '/login') return null;
 
@@ -60,7 +62,7 @@ export function Header() {
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <LogOut />
-                <span>Sair da conta</span>
+                <button onClick={logoutUser}>Sair da conta</button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
