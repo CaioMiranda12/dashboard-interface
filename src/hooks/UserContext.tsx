@@ -1,5 +1,6 @@
 'use client'
 
+import { isTokenValid } from "@/utils/isTokenValid";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 interface UserData {
@@ -12,6 +13,7 @@ interface UserData {
 interface UserContextType {
   userData: UserData,
   putUserData: (userInfo: UserData) => Promise<void>
+  loading: boolean
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -22,6 +24,7 @@ interface UserProviderProps {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [userData, setUserData] = useState<UserData>({})
+  const [loading, setLoading] = useState(true)
 
   const putUserData = async (userInfo: UserData) => {
     setUserData(userInfo)
@@ -33,15 +36,23 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       const clientInfo = localStorage.getItem('findash:userData');
 
       if (clientInfo) {
-        setUserData(JSON.parse(clientInfo))
+        const parsedUser: UserData = JSON.parse(clientInfo);
+
+        if (parsedUser.token && isTokenValid(parsedUser.token)) {
+          setUserData(parsedUser);
+        } else {
+          localStorage.removeItem('findash:userData')
+        }
       }
+
+      setLoading(false)
     }
 
     loadUserData()
   }, [])
 
   return (
-    <UserContext.Provider value={{ userData, putUserData }}>
+    <UserContext.Provider value={{ userData, putUserData, loading }}>
       {children}
     </UserContext.Provider>
   )

@@ -46,7 +46,7 @@ export default function Login() {
     putUserData(data)
 
     setTimeout(() => {
-      router.push('/')
+      router.push('/dashboard')
     }, 1000)
   }
 

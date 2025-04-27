@@ -3,6 +3,7 @@
 import { FaCircleUser } from "react-icons/fa6";
 import { Button } from "../button";
 import { usePathname } from "next/navigation";
+import { Logo } from "../logo";
 
 export function Header() {
   const pathname = usePathname();
@@ -11,7 +12,7 @@ export function Header() {
 
   return (
     <header className="flex justify-between items-center h-20 px-2 xl:px-8 bg-[#04141C]">
-      <h1 className="text-green-300 font-bold text-lg xl:text-2xl">{"<FinDash$/>"}</h1>
+      <Logo />
 
       <div className="flex xl:gap-16">
         <div className="flex gap-4 text-white">
