@@ -3,7 +3,7 @@ import { BsGraphUp } from "react-icons/bs";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center gap-6 h-[75vh]">
+    <div className="flex flex-col items-center justify-center gap-6 h-[75vh] max-w-screen-xl mx-auto">
       <BsGraphUp color="#67d18f " size={90} />
       <h1 className="text-green-300 font-bold text-4xl">{"<FinDash$/>"}</h1>
       <p className="text-gray-200 text-lg">Seja bem-vindo(a) ao FinDash!</p>
