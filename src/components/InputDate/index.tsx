@@ -18,7 +18,7 @@ export function InputDate({ name }: { name: string }) {
 
   return (
     <div className="flex flex-col">
-      <label className="text-white text-lg">{name}:</label>
+      <label className="text-white text-md">{name}:</label>
       <Popover>
         <PopoverTrigger asChild>
           <Button

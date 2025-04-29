@@ -6,8 +6,8 @@ import { FaSearch } from "react-icons/fa";
 export default function Home() {
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto px-2 flex flex-col md:flex-row md:justify-between">
-      <div className="mb-5">
+    <div className="w-full max-w-screen-xl mx-auto px-2 flex flex-col md:flex-row md:justify-between md:items-end">
+      <div className="mb-5 lg:mb-0">
         <h1 className="text-white text-xl font-bold">Saldo</h1>
         <p className="text-gray-300">Receitas e despesas no periodo</p>
       </div>
