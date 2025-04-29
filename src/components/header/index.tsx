@@ -20,12 +20,12 @@ import { useUser } from "@/hooks/UserContext";
 
 export function Header() {
   const pathname = usePathname();
-  const { logoutUser } = useUser()
+  const { logoutUser, userData } = useUser()
 
   if (pathname === '/cadastro' || pathname === '/login') return null;
 
   return (
-    <header className="flex justify-between items-center h-20 px-2 xl:px-8 bg-[#04141C]">
+    <header className="flex justify-between items-center h-20 px-2 xl:px-8 bg-[#04141C] max-w-screen-xl mx-auto">
       <Logo />
 
       <div className="flex xl:gap-16">
@@ -40,7 +40,7 @@ export function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <div className="flex gap-3 ml-4">
-                <p className="hidden sm:block">Caio César</p>
+                <p className="hidden sm:block">{userData.name}</p>
                 <FaCircleUser color="#fff" size={25} />
               </div>
             </DropdownMenuTrigger>
