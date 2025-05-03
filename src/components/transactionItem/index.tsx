@@ -1,16 +1,10 @@
+import { Transaction } from "@/types/transaction";
 import { convertCurrency } from "@/utils/convertCurrency";
+import { convertDate } from "@/utils/convertDate";
 
-interface TransactionItemProps {
-  id: number;
-  category: string;
-  name: string;
-  date: string;
-  price: number;
-}
+interface TransactionItemProps extends Transaction { }
 
-export function TransactionItem({ id, name, date, category, price }: TransactionItemProps) {
-
-
+export function TransactionItem({ id, title, date, category, amount }: TransactionItemProps) {
 
   return (
     <div className="flex justify-between">
@@ -21,17 +15,17 @@ export function TransactionItem({ id, name, date, category, price }: Transaction
         </div>
 
         <div className="flex flex-col justify-between">
-          <strong className="text-gray-300 font-medium">{name}</strong>
-          <span className="text-gray-400">{date}</span>
+          <strong className="text-gray-300 font-medium">{title}</strong>
+          <span className="text-gray-400">{convertDate(date)}</span>
         </div>
       </div>
 
       <div className="flex flex-col items-end">
         {
-          price < 0 ? (
-            <strong className="text-red-400 font-bold">{convertCurrency(price)}</strong>
+          amount < 0 ? (
+            <strong className="text-red-400 font-bold">{convertCurrency(amount)}</strong>
           ) : (
-            <strong className="text-green-400 font-bold">{convertCurrency(price)}</strong>
+            <strong className="text-green-400 font-bold">{convertCurrency(amount)}</strong>
           )
         }
 

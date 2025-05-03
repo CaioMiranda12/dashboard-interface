@@ -1,5 +1,6 @@
 import { InputDate } from "@/components/InputDate";
 import { TransactionItem } from "@/components/transactionItem";
+import { TransactionList } from "@/components/transactionList";
 import { Search } from "lucide-react";
 import { FaSearch } from "react-icons/fa";
 
@@ -50,9 +51,8 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="mt-6 flex flex-col gap-4">
-          <TransactionItem id={2} name="Salário" price={150} category={'Mesada'} date="23/02/2025" />
-          <TransactionItem id={3} name="Mercado" price={-12.90} category={'Alimentação'} date="24/02/2025" />
+        <div className="mt-6">
+          <TransactionList />
         </div>
       </div>
 
