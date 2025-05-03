@@ -4,7 +4,7 @@ import { convertDate } from "@/utils/convertDate";
 
 interface TransactionItemProps extends Transaction { }
 
-export function TransactionItem({ id, title, date, category, amount }: TransactionItemProps) {
+export function TransactionItem({ id, title, date, Category, amount }: TransactionItemProps) {
 
   return (
     <div className="flex justify-between">
@@ -29,7 +29,7 @@ export function TransactionItem({ id, title, date, category, amount }: Transacti
           )
         }
 
-        <span className="border border-green-400 rounded-[2px] p-1 text-green-400 uppercase text-xs">{category}</span>
+        <span className="border border-green-400 rounded-[2px] p-1 text-green-400 uppercase text-xs">{Category.name}</span>
       </div>
 
     </div>
