@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { CircleUserRound, LogOut, Trash2, UserPen } from "lucide-react";
 import { useUser } from "@/hooks/UserContext";
+import { CategoryDialog } from "../categoryDialog";
 
 
 export function Header() {
@@ -31,7 +32,7 @@ export function Header() {
       <div className="flex xl:gap-16">
         <div className="flex gap-4 text-white ml-4">
           <Button>Nova transação</Button>
-          <Button>Nova transação</Button>
+          <CategoryDialog />
         </div>
 
         <div className="flex items-center xl:gap-3 text-white">

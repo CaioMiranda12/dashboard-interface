@@ -12,6 +12,11 @@ input {
 }
 
 @theme inline {
+  --color-black-ofc: #04141C;
+  --color-primary-ofc: #00ED64;
+  --color-dark-ofc: #001E2B;
+
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -122,6 +127,7 @@ input {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
