@@ -14,7 +14,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { CircleUserRound, Delete, Edit, LogOut, Trash2, UserPen } from "lucide-react";
+import { CircleUserRound, LogOut, Trash2, UserPen } from "lucide-react";
 import { useUser } from "@/hooks/UserContext";
 
 
@@ -31,12 +31,10 @@ export function Header() {
       <div className="flex xl:gap-16">
         <div className="flex gap-4 text-white ml-4">
           <Button>Nova transação</Button>
-          <Button>Nova categoria</Button>
+          <Button>Nova transação</Button>
         </div>
 
         <div className="flex items-center xl:gap-3 text-white">
-
-
           <DropdownMenu>
             <DropdownMenuTrigger>
               <div className="flex gap-3 ml-4">
@@ -60,9 +58,9 @@ export function Header() {
                 <span>Deletar conta</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={logoutUser}>
                 <LogOut />
-                <button onClick={logoutUser}>Sair da conta</button>
+                <span>Sair da conta</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

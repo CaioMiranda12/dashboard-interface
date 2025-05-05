@@ -6,5 +6,6 @@ export interface Transaction {
     Category: {
       id: number;
       name: string;
-    }
+    },
+    description: string;
 }
