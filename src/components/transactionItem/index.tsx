@@ -54,6 +54,16 @@ export function TransactionItem({ id, title, date, Category, amount, description
           <DialogTitle className="text-gray-200 flex flex-col gap-2">
             <span className="text-sm text-gray-400">#{id.toString().padStart(4, '0')} - {Category.name}</span>
             {title}
+            {
+              type === 'expense' && (
+                <strong className="text-red-400 font-bold text-base">{convertCurrency(amount * (-1))}</strong>
+              )
+            }
+            {
+              type === 'income' && (
+                <strong className="text-green-400 font-bold text-base">{convertCurrency(amount)}</strong>
+              )
+            }
             <span className="text-sm text-gray-400">{convertDate(date)}</span>
           </DialogTitle>
           <DialogDescription className="text-gray-300 text-base">
