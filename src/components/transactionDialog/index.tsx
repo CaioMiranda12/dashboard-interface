@@ -117,17 +117,17 @@ export function TransactionDialog() {
             <label className="text-sm mb-1">Nome</label>
             <input
               className="bg-black-ofc py-3 px-4"
-              placeholder="Nome da categoria..."
+              placeholder="Nome da transação..."
               {...register('title')}
             />
             <p className="text-red-400 font-semibold mt-1">{errors.title?.message}</p>
           </div>
 
           <div className="flex flex-col">
-            <label className="text-sm mb-1">Descrição da transação</label>
+            <label className="text-sm mb-1">Descrição</label>
             <input
               className="bg-black-ofc py-3 px-4"
-              placeholder="Nome da categoria..."
+              placeholder="Descrição da transação..."
               {...register('description')}
             />
           </div>
@@ -152,7 +152,7 @@ export function TransactionDialog() {
               type="number"
               step='any'
               className="bg-black-ofc py-3 px-4"
-              placeholder="Nome da categoria..."
+              placeholder="Valor da transação..."
               {...register('amount')}
             />
             <p className="text-red-400 font-semibold mt-1">{errors.amount?.message}</p>
@@ -163,7 +163,7 @@ export function TransactionDialog() {
             <input
               type="date"
               className="bg-black-ofc py-3 px-4"
-              placeholder="Nome da categoria..."
+              placeholder="Nome da transação..."
               {...register('date')}
             />
             <p className="text-red-400 font-semibold mt-1">{errors.date?.message}</p>
