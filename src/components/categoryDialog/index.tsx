@@ -31,6 +31,7 @@ export function CategoryDialog() {
     resolver: yupResolver(schema),
   })
   const onSubmit = async (data: categoryData) => {
+
     try {
       const { status } = await api.post('/category', {
         name: data.name,
@@ -85,7 +86,9 @@ export function CategoryDialog() {
               Cancelar
             </DialogClose>
 
-            <button className="border border-primary-ofc bg-primary-ofc px-4 py-2 text-dark-ofc font-semibold rounded-sm cursor-pointer hover:opacity-80 active:opacity-60">
+            <button
+              type="submit"
+              className="border border-primary-ofc bg-primary-ofc px-4 py-2 text-dark-ofc font-semibold rounded-sm cursor-pointer hover:opacity-80 active:opacity-60">
               Cadastrar
             </button>
           </div>
