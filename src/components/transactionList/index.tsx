@@ -21,7 +21,7 @@ export function TransactionList() {
     <div className="flex flex-col gap-4">
       {
         transactions.map(transaction => (
-          <TransactionItem key={transaction.id} id={2} title={transaction.title} amount={transaction.amount} Category={transaction.Category} date={transaction.date} description={transaction.description} />
+          <TransactionItem key={transaction.id} id={2} title={transaction.title} amount={transaction.amount} Category={transaction.Category} date={transaction.date} description={transaction.description} type={transaction.type} />
         ))
       }
     </div>

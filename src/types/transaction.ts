@@ -8,4 +8,5 @@ export interface Transaction {
       name: string;
     },
     description: string;
+    type: 'income' | 'expense'
 }

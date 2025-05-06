@@ -15,11 +15,9 @@ import { Button } from "../button";
 
 interface TransactionItemProps extends Transaction { }
 
-export function TransactionItem({ id, title, date, Category, amount, description }: TransactionItemProps) {
+export function TransactionItem({ id, title, date, Category, amount, description, type }: TransactionItemProps) {
 
   return (
-
-
     <Dialog>
       <DialogTrigger>
         <div className="flex justify-between p-2 hover:border cursor-pointer">
@@ -37,9 +35,12 @@ export function TransactionItem({ id, title, date, Category, amount, description
 
           <div className="flex flex-col items-end">
             {
-              amount < 0 ? (
-                <strong className="text-red-400 font-bold">{convertCurrency(amount)}</strong>
-              ) : (
+              type === 'expense' && (
+                <strong className="text-red-400 font-bold">{convertCurrency(amount * (-1))}</strong>
+              )
+            }
+            {
+              type === 'income' && (
                 <strong className="text-green-400 font-bold">{convertCurrency(amount)}</strong>
               )
             }

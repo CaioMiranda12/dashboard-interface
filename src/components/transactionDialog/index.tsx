@@ -64,7 +64,7 @@ export function TransactionDialog() {
     resolver: yupResolver(schema),
     defaultValues: {
       type: 'income',
-      date: new Date().toISOString().split('T')[0]
+      date: new Date().toISOString().split('T')[0],
     }
   })
 
