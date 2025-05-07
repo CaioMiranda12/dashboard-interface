@@ -4,18 +4,11 @@ import { api } from "@/services/api";
 import { TransactionItem } from "../transactionItem";
 import { useEffect, useState } from "react";
 import { Transaction } from "@/types/transaction";
+import { useTransaction } from "@/hooks/TransactionContext";
 
 export function TransactionList() {
-  const [transactions, setTransactions] = useState<Transaction[]>([])
 
-  useEffect(() => {
-    api.get('/transactions')
-      .then(res => setTransactions(res.data))
-      .catch(err => console.error(err))
-  }, [])
-
-  console.log(transactions)
-
+  const { transactions } = useTransaction();
 
   return (
     <div className="flex flex-col gap-4">

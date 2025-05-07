@@ -5,6 +5,7 @@ import { Header } from "@/components/header";
 import { ToastContainer } from "react-toastify";
 import { UserProvider } from "@/hooks/UserContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { TransactionProvider } from "@/hooks/TransactionContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,11 +29,13 @@ export default function PrivateLayout({
 }>) {
   return (
     <UserProvider>
-      <ProtectedRoute>
-        <Header />
-        <ToastContainer theme="colored" pauseOnHover={false} autoClose={1000} />
-        {children}
-      </ProtectedRoute>
+      <TransactionProvider>
+        <ProtectedRoute>
+          <Header />
+          <ToastContainer theme="colored" pauseOnHover={false} autoClose={1000} />
+          {children}
+        </ProtectedRoute>
+      </TransactionProvider>
     </UserProvider>
   );
 }

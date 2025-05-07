@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { useTransaction } from "@/hooks/TransactionContext"
 import { api } from "@/services/api"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useEffect, useState } from "react"
@@ -33,6 +34,8 @@ interface Category {
 
 export function TransactionDialog() {
   const [categories, setCategories] = useState<Category[]>([])
+
+  const { addTransaction } = useTransaction();
 
   useEffect(() => {
     async function getCategories() {
@@ -73,7 +76,7 @@ export function TransactionDialog() {
   const onSubmit = async (data: transactionData) => {
 
     try {
-      const { status } = await api.post('/transactions', {
+      const response = await api.post('/transactions', {
         title: data.title,
         description: data.description,
         amount: data.amount,
@@ -85,11 +88,14 @@ export function TransactionDialog() {
           validateStatus: () => true
         })
 
-      if (status === 201 || status === 200) {
+      if (response.status === 201 || response.status === 200) {
+        const newTransaction = response.data;
         toast.success('Transação criada com sucesso')
+
+        addTransaction(newTransaction)
       }
 
-      else if (status === 409) {
+      else if (response.status === 409) {
         toast.error('Já existe uma transação com esse nome.')
       }
       else {
