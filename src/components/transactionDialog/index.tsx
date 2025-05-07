@@ -50,7 +50,9 @@ export function TransactionDialog() {
   const schema = yup.object({
     title: yup.string().required('O nome é obrigatório'),
     description: yup.string().min(6, 'A descrição deve ter no mínimo 6 caracteres').required('Digite uma descrição'),
-    amount: yup.number().positive('O valor deve ser maior que 0').required('Digite um valor'),
+    amount: yup.number().transform((value, originalValue) => (
+      String(originalValue).trim() === '' ? undefined : value
+    )).positive('O valor deve ser maior que 0').required('Digite um valor'),
     categoryId: yup.number().min(1).required('Digite uma categoria'),
     type: yup.string().oneOf(['income', 'expense']).required('Escolha um tipo'),
     date: yup.string().optional(),
@@ -130,6 +132,7 @@ export function TransactionDialog() {
               placeholder="Descrição da transação..."
               {...register('description')}
             />
+            <p className="text-red-400 font-semibold mt-1">{errors.description?.message}</p>
           </div>
 
           <div className="flex flex-col">
