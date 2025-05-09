@@ -10,12 +10,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Button } from "../button";
+import { DeleteTransactionButton } from "../deleteTransactionButton";
+import { useState } from "react";
 
 
 interface TransactionItemProps extends Transaction { }
 
 export function TransactionItem({ id, title, date, Category, amount, description, type }: TransactionItemProps) {
+
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
+
+  const handleEditClick = (): void => {
+    setSelectedTransaction({ id, title, date, Category, amount, description, type });
+  };
 
   return (
     <Dialog>
@@ -71,12 +78,13 @@ export function TransactionItem({ id, title, date, Category, amount, description
           </DialogDescription>
         </DialogHeader>
         <div className="flex gap-3">
-          <button className="text-sm text-[#04141C] font-semibold px-4 py-2 rounded-lg bg-emerald-400 cursor-pointer hover:bg-emerald-600 transition-all duration-300">
+          <button
+            className="text-sm text-[#04141C] font-semibold px-4 py-2 rounded-lg bg-emerald-400 cursor-pointer hover:bg-emerald-600 transition-all duration-300">
             Editar
           </button>
-          <button className="text-sm text-[#04141C] font-semibold px-4 py-2 rounded-lg bg-red-400 cursor-pointer hover:opacity-80 transition-all duration-300">
-            Deletar
-          </button>
+
+          <DeleteTransactionButton transactionId={id} />
+
         </div>
       </DialogContent>
     </Dialog>

@@ -8,6 +8,7 @@ interface TransactionContextType {
   transactions: Transaction[];
   getTransactions: () => Promise<void>;
   addTransaction: (transaction: Transaction) => void;
+  removeTransaction: (transactionId: number) => void;
 }
 
 const TransactionContext = createContext<TransactionContextType | undefined>(undefined)
@@ -24,12 +25,18 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
     setTransactions(allTransactions => [newTransaction, ...allTransactions]);
   };
 
+  const removeTransaction = (transactionId: number) => {
+    const filterTransactions = transactions.filter(transaction => transaction.id !== transactionId);
+
+    setTransactions(filterTransactions);
+  };
+
   useEffect(() => {
     getTransactions();
   }, [])
 
   return (
-    <TransactionContext.Provider value={{ transactions, getTransactions, addTransaction }}>
+    <TransactionContext.Provider value={{ transactions, getTransactions, addTransaction, removeTransaction }}>
       {children}
     </TransactionContext.Provider>
   )
