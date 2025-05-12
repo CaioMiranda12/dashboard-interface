@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog"
 import { DeleteTransactionButton } from "../deleteTransactionButton";
 import { useState } from "react";
+import { TransactionEditDialog } from "../transactionEditDialog";
 
 
 interface TransactionItemProps extends Transaction { }
@@ -78,11 +79,8 @@ export function TransactionItem({ id, title, date, Category, amount, description
           </DialogDescription>
         </DialogHeader>
         <div className="flex gap-3">
-          <button
-            className="text-sm text-[#04141C] font-semibold px-4 py-2 rounded-lg bg-emerald-400 cursor-pointer hover:bg-emerald-600 transition-all duration-300">
-            Editar
-          </button>
 
+          <TransactionEditDialog transaction={{ id, title, amount, Category, date, description, type }} />
           <DeleteTransactionButton transactionId={id} />
 
         </div>
