@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Dialog,
   DialogClose,
@@ -9,6 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { api } from "@/services/api"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 
@@ -19,6 +22,8 @@ interface categoryData {
 }
 
 export function CategoryDialog() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const schema = yup.object({
     name: yup.string().required('O nome é obrigatório'),
   }).required()
@@ -26,6 +31,7 @@ export function CategoryDialog() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -41,22 +47,24 @@ export function CategoryDialog() {
         })
 
       if (status === 201 || status === 200) {
-        toast.success('Categoria criada com sucesso')
+        toast.success('Categoria criada com sucesso');
+        reset();
+        setIsOpen(false);
       }
 
       else if (status === 409) {
-        toast.error('Já existe uma categoria com esse nome.')
+        toast.error('Já existe uma categoria com esse nome.');
       }
       else {
         throw new Error();
       }
     } catch (error) {
-      toast.error('Falha no sistema! Tente novamente')
+      toast.error('Falha no sistema! Tente novamente');
     }
   }
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger className="text-sm text-[#04141C] font-semibold p-2 rounded-lg bg-emerald-400 cursor-pointer hover:bg-emerald-600 transition-all duration-300">
         Nova categoria
       </DialogTrigger>
