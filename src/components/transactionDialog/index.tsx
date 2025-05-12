@@ -33,7 +33,8 @@ interface Category {
 }
 
 export function TransactionDialog() {
-  const [categories, setCategories] = useState<Category[]>([])
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { addTransaction } = useTransaction();
 
@@ -64,6 +65,7 @@ export function TransactionDialog() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -90,9 +92,11 @@ export function TransactionDialog() {
 
       if (response.status === 201 || response.status === 200) {
         const newTransaction = response.data;
-        toast.success('Transação criada com sucesso')
-
         addTransaction(newTransaction)
+        toast.success('Transação criada com sucesso')
+        reset();
+
+        setIsOpen(false);
       }
 
       else if (response.status === 409) {
@@ -107,9 +111,13 @@ export function TransactionDialog() {
   }
 
   return (
-    <Dialog>
-      <DialogTrigger className="text-sm text-[#04141C] font-semibold p-2 rounded-lg bg-emerald-400 cursor-pointer hover:bg-emerald-600 transition-all duration-300">
-        Nova transação
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="text-sm text-[#04141C] font-semibold p-2 rounded-lg bg-emerald-400 cursor-pointer hover:bg-emerald-600 transition-all duration-300">
+          Nova transação
+        </button>
       </DialogTrigger>
       <DialogContent className="bg-[#001E2B] text-white">
         <DialogHeader>
