@@ -37,21 +37,7 @@ export default function Home() {
         <h1 className="text-white text-xl font-bold">Transações</h1>
         <p className="text-gray-300">Receitas e Gastos no período</p>
 
-        <div className="flex gap-4 mt-3">
-          <input
-            type="text"
-            placeholder="Procurar transação..."
-            className="bg-[#04141C] w-full rounded-sm text-white px-2"
-          />
-
-          <button
-            className="bg-green-400 hover:bg-green-500 cursor-pointer w-[36px] h-[36px] p-1.5 flex justify-center items-center rounded-sm"
-          >
-            <Search />
-          </button>
-        </div>
-
-        <div className="mt-6">
+        <div className="mt-3">
           <TransactionList />
         </div>
       </div>
