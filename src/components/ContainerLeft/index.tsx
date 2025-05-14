@@ -1,0 +1,38 @@
+import { Search } from "lucide-react";
+import { InputDate } from "../InputDate";
+import { InfoContainer } from "../InfoContainer";
+
+export function ContainerLeft() {
+  return (
+    <div className="col-span-2 p-2">
+      <div className="flex flex-col md:flex-row md:justify-between">
+        <div className="mb-5 lg:mb-0">
+          <h1 className="text-white text-xl font-bold">Saldo</h1>
+          <p className="text-gray-300">Receitas e despesas no periodo</p>
+        </div>
+
+        <div className="flex gap-4">
+          <div className="flex gap-4">
+            <InputDate name="Inicio" />
+            <InputDate name="Fim" />
+          </div>
+
+          <div className="flex items-end">
+            <button
+              className="bg-green-400 hover:bg-green-500 cursor-pointer w-[30px] h-[30px] p-1.5 flex justify-center items-center rounded-sm"
+            >
+              <Search />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-4 mt-4">
+        <InfoContainer name="Saldo" value={0} color="#016BF8" />
+        <InfoContainer name="Receitas" value={23.90} color="#00ED64" />
+        <InfoContainer name="Gastos" value={0} color="#DB3030" />
+      </div>
+
+    </div>
+  )
+}
