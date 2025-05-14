@@ -179,12 +179,12 @@ export function TransactionDialog() {
             <label className="text-sm mb-1">Data</label>
             <input
               type="date"
-              className="bg-black-ofc py-3 px-4"
-              placeholder="Nome da transação..."
               {...register('date')}
+              className="bg-black-ofc w-[180px] py-3 px-4 text-white border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
             />
             <p className="text-red-400 font-semibold mt-1">{errors.date?.message}</p>
           </div>
+
 
           <div className="flex flex-col gap-3">
             <label className="flex items-center gap-1">
