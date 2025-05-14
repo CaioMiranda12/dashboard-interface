@@ -3,6 +3,10 @@ import { InputDate } from "../InputDate";
 import { InfoContainer } from "../InfoContainer";
 import { Label } from "../label";
 
+import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import { BsArrowUpRightCircle } from "react-icons/bs";
+import { BsArrowDownRightCircle } from "react-icons/bs";
+
 export function ContainerLeft() {
   return (
     <div className="col-span-2 p-2">
@@ -26,9 +30,9 @@ export function ContainerLeft() {
       </div>
 
       <div className="grid grid-cols-3 gap-4 mt-4">
-        <InfoContainer name="Saldo" value={0} color="#016BF8" />
-        <InfoContainer name="Receitas" value={23.90} color="#00ED64" />
-        <InfoContainer name="Gastos" value={0} color="#DB3030" />
+        <InfoContainer icon={RiMoneyDollarCircleLine} name="Saldo" value={0} color="#016BF8" />
+        <InfoContainer icon={BsArrowUpRightCircle} name="Receitas" value={23.90} color="#00ED64" />
+        <InfoContainer icon={BsArrowDownRightCircle} name="Gastos" value={0} color="#DB3030" />
       </div>
 
     </div>
