@@ -1,11 +1,9 @@
 import { Search } from "lucide-react";
 import { InputDate } from "../InputDate";
-import { InfoContainer } from "../InfoContainer";
 import { Label } from "../label";
+import { SummaryContainer } from "../SummaryContainer";
 
-import { RiMoneyDollarCircleLine } from "react-icons/ri";
-import { BsArrowUpRightCircle } from "react-icons/bs";
-import { BsArrowDownRightCircle } from "react-icons/bs";
+
 
 export function ContainerLeft() {
   return (
@@ -29,11 +27,7 @@ export function ContainerLeft() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mt-4">
-        <InfoContainer icon={RiMoneyDollarCircleLine} name="Saldo" value={0} color="#016BF8" />
-        <InfoContainer icon={BsArrowUpRightCircle} name="Receitas" value={23.90} color="#00ED64" />
-        <InfoContainer icon={BsArrowDownRightCircle} name="Gastos" value={0} color="#DB3030" />
-      </div>
+      <SummaryContainer />
 
     </div>
   )
