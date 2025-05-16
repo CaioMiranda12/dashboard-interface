@@ -20,8 +20,17 @@ export function SummaryContainer() {
 
   useEffect(() => {
     async function getSummary() {
-      const { data } = await api.get('/summary');
-      setSummary(data);
+      try {
+        const { data } = await api.get('/summary');
+        setSummary(data);
+      } catch (error) {
+        console.log('Erro ao buscar resumo: ', error)
+        setSummary({
+          balance: 0,
+          income: 0,
+          expense: 0,
+        })
+      }
     }
 
     getSummary();
@@ -31,7 +40,7 @@ export function SummaryContainer() {
     <div className="grid grid-cols-3 gap-4 mt-4">
       <InfoContainer icon={RiMoneyDollarCircleLine} name="Saldo" value={summary.balance} color="#016BF8" />
       <InfoContainer icon={BsArrowUpRightCircle} name="Receitas" value={summary.income} color="#00ED64" />
-      <InfoContainer icon={BsArrowDownRightCircle} name="Gastos" value={summary.expense} color="#DB3030" />
+      <InfoContainer icon={BsArrowDownRightCircle} name="Gastos" value={summary.expense * (-1)} color="#DB3030" />
     </div>
   )
 }
