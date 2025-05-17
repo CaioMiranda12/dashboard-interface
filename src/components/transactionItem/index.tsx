@@ -52,7 +52,12 @@ export function TransactionItem({ id, title, date, Category, amount, description
                 <strong className="text-green-400 font-bold">{convertCurrency(amount)}</strong>
               )
             }
-            <span className="border border-green-400 rounded-[2px] p-1 text-green-400 uppercase text-xs">{Category.name}</span>
+            <span
+              style={{
+                color: Category.color,
+                borderColor: Category.color
+              }}
+              className="border rounded-[2px] p-1 uppercase text-xs">{Category.name}</span>
           </div>
 
         </div>

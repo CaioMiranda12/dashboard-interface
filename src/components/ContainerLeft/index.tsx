@@ -5,6 +5,7 @@ import { InputDate } from "../InputDate";
 import { Label } from "../label";
 import { SummaryContainer } from "../SummaryContainer";
 import { useState } from "react";
+import { ExpensesContainer } from "../ExpensesContainer";
 
 
 
@@ -44,6 +45,8 @@ export function ContainerLeft() {
       </div>
 
       <SummaryContainer filters={filters} />
+
+      <ExpensesContainer />
 
     </div>
   )

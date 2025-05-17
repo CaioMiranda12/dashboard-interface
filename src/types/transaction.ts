@@ -6,6 +6,7 @@ export interface Transaction {
     Category: {
       id: number;
       name: string;
+      color: string;
     },
     description: string;
     type: 'income' | 'expense'

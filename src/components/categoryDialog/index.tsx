@@ -19,6 +19,7 @@ import * as yup from "yup"
 
 interface categoryData {
   name: string;
+  color: string;
 }
 
 export function CategoryDialog() {
@@ -26,6 +27,9 @@ export function CategoryDialog() {
 
   const schema = yup.object({
     name: yup.string().required('O nome é obrigatório'),
+    color: yup.string()
+      .required('A cor é obrigatória')
+      .matches(/^#(?:[0-9a-fA-F]{3}){1,2}$/, 'Use uma cor hexadecimal válida')
   }).required()
 
   const {
@@ -41,6 +45,7 @@ export function CategoryDialog() {
     try {
       const { status } = await api.post('/category', {
         name: data.name,
+        color: data.color
       },
         {
           validateStatus: () => true
@@ -86,6 +91,18 @@ export function CategoryDialog() {
               {...register('name')}
             />
             <p className="text-red-400 font-semibold mt-1">{errors.name?.message}</p>
+
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-sm">Cor</label>
+            <input
+              type="color"
+              className="bg-black-ofc py-3 px-4"
+              {...register('color')}
+              defaultValue='#FFFFFF'
+            />
+            <p className="text-red-400 font-semibold mt-1">{errors.color?.message}</p>
 
           </div>
 
