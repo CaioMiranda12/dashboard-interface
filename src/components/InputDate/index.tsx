@@ -11,11 +11,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { useState } from "react"
 
-export function InputDate({ name }: { name: string }) {
-  const [date, setDate] = useState<Date>()
+interface InputDateProps {
+  name: string;
+  selectedDate: Date | null;
+  onDateChange: (date: Date | null) => void;
+}
 
+export function InputDate({ name, selectedDate, onDateChange }: InputDateProps) {
   return (
     <div className="flex flex-col">
       <label className="text-white text-md">{name}:</label>
@@ -24,18 +27,18 @@ export function InputDate({ name }: { name: string }) {
           <Button
             className={cn(
               "w-[150px] justify-start text-left font-normal bg-[#001E2B] hover:bg-[#001E2B] border-none",
-              !date && "text-muted-foreground"
+              !selectedDate && "text-muted-foreground"
             )}
           >
-            <CalendarIcon />
-            {date ? format(date, "PPP") : <span>dd/mm/aaaa</span>}
+            <CalendarIcon className="mr-2 h-4 w-4" />
+            {selectedDate ? format(selectedDate, "PPP") : <span>dd/mm/aaaa</span>}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
           <Calendar
             mode="single"
-            selected={date}
-            onSelect={setDate}
+            selected={selectedDate ?? undefined}
+            onSelect={(date) => onDateChange(date ?? null)}
             initialFocus
           />
         </PopoverContent>
