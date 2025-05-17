@@ -19,12 +19,6 @@ interface TransactionItemProps extends Transaction { }
 
 export function TransactionItem({ id, title, date, Category, amount, description, type }: TransactionItemProps) {
 
-  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
-
-  const handleEditClick = (): void => {
-    setSelectedTransaction({ id, title, date, Category, amount, description, type });
-  };
-
   return (
     <Dialog>
       <DialogTrigger>

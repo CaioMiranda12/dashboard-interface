@@ -39,6 +39,8 @@ export function TransactionDialog() {
   const { addTransaction } = useTransaction();
 
   useEffect(() => {
+    if (!isOpen) return;
+
     async function getCategories() {
       try {
         const res = await api.get('/category');
@@ -49,7 +51,7 @@ export function TransactionDialog() {
     }
 
     getCategories()
-  }, [])
+  }, [isOpen])
 
   const schema = yup.object({
     title: yup.string().required('O nome é obrigatório'),
