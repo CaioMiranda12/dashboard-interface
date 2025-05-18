@@ -25,7 +25,7 @@ export function ExpensesContainer({ expenses }: ExpensesContainerProps) {
 
 
   return (
-    <div className="py-4">
+    <div className="p-4 mt-4 bg-dark-ofc">
       <Label title="Gastos" description="Despesas por categoria no período" />
 
       <div>
