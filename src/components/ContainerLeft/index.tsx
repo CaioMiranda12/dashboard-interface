@@ -4,15 +4,27 @@ import { Search } from "lucide-react";
 import { InputDate } from "../InputDate";
 import { Label } from "../label";
 import { SummaryContainer } from "../SummaryContainer";
-import { useState } from "react";
-import { ExpensesContainer } from "../ExpensesContainer";
+import { useEffect, useState } from "react";
 
 
 
 export function ContainerLeft() {
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+
+
+  const now = new Date();
+  const defaultStartDate = new Date(now.getFullYear(), now.getMonth(), 1);
+  const defaultEndDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+
+  const [startDate, setStartDate] = useState<Date | null>(defaultStartDate);
+  const [endDate, setEndDate] = useState<Date | null>(defaultEndDate);
   const [filters, setFilters] = useState<{ startDate: string, endDate: string } | null>(null);
+
+  useEffect(() => {
+    setFilters({
+      startDate: defaultStartDate.toISOString().split('T')[0],
+      endDate: defaultEndDate.toISOString().split('T')[0]
+    })
+  }, [])
 
   const handleSearch = () => {
     if (startDate && endDate) {
@@ -29,8 +41,8 @@ export function ContainerLeft() {
 
         <div className="flex gap-4">
           <div className="flex gap-4">
-            <InputDate name="Início" selectedDate={startDate} onDateChange={setStartDate} />
-            <InputDate name="Fim" selectedDate={endDate} onDateChange={setEndDate} />
+            <InputDate name="Início" selectedDate={startDate} onDateChange={setStartDate} defaultDate={defaultStartDate} />
+            <InputDate name="Fim" selectedDate={endDate} onDateChange={setEndDate} defaultDate={defaultEndDate} />
           </div>
 
           <div className="flex items-end">
