@@ -46,8 +46,6 @@ export function ContainerLeft() {
 
       <SummaryContainer filters={filters} />
 
-      <ExpensesContainer />
-
     </div>
   )
 }
