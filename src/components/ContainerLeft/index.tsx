@@ -17,14 +17,10 @@ export function ContainerLeft() {
 
   const [startDate, setStartDate] = useState<Date | null>(defaultStartDate);
   const [endDate, setEndDate] = useState<Date | null>(defaultEndDate);
-  const [filters, setFilters] = useState<{ startDate: string, endDate: string } | null>(null);
-
-  useEffect(() => {
-    setFilters({
-      startDate: defaultStartDate.toISOString().split('T')[0],
-      endDate: defaultEndDate.toISOString().split('T')[0]
-    })
-  }, [])
+  const [filters, setFilters] = useState<{ startDate: string, endDate: string } | null>({
+    startDate: defaultStartDate.toISOString().split('T')[0],
+    endDate: defaultEndDate.toISOString().split('T')[0]
+  });
 
   const handleSearch = () => {
     if (startDate && endDate) {
