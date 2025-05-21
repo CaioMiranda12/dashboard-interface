@@ -47,12 +47,13 @@ export function FinanceChart({ financeEvolutionData }: FinanceChartProps) {
       income: 0,
       expense: 0,
       balance: 0,
+      spacer: 0,
     }
   })
 
   return (
     <div>
-      <ChartContainer config={chartConfig}>
+      <ChartContainer config={chartConfig} >
         <BarChart
           width={1000}
           height={300}
@@ -89,6 +90,7 @@ export function FinanceChart({ financeEvolutionData }: FinanceChartProps) {
           <Bar dataKey="income" fill="#00ED64" radius={4} name="Receita" />
           <Bar dataKey="expense" fill="#DB3030" radius={4} name="Despesa" />
           <Bar dataKey="balance" fill="#016BF8" radius={4} name="Saldo" />
+          <Bar dataKey="spacer" fill="transparent" />
         </BarChart>
       </ChartContainer>
     </div>
