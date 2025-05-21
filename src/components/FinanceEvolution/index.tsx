@@ -4,15 +4,46 @@ import { Search } from "lucide-react";
 import { Label } from "../label";
 import InputMask from '@mona-health/react-input-mask';
 import { ChangeEvent, useState } from "react";
+import { api } from "@/services/api";
+import { FinanceChart } from "../FinanceChart";
+import { Summary } from "@/types/summary";
 
 export function FinanceEvolution() {
-  const [year, setYear] = useState<string>("2025")
+  const [year, setYear] = useState<string>(new Date().getFullYear().toLocaleString())
+  const [financeEvolutionData, setFinanceEvolutionData] = useState<
+    { month: string; income: number; expense: number; balance: number }[]
+  >([]);
 
-  function handleSearch() {
+  async function handleSearch() {
     if (year.length === 4) {
-      console.log(year)
+
+      try {
+        const { data } = await api.get('/summary/year', {
+          params: {
+            year: year
+          }
+        })
+
+        const formattedData = Object.entries(data).map(([month, values]) => ({
+          month,
+          income: values.income,
+          expense: values.expense,
+          balance: values.balance
+
+        }));
+
+        setFinanceEvolutionData(formattedData);
+
+      } catch (error) {
+        console.log('Falha ao carregar transaçoes anuais')
+        return;
+      }
+
+
+
     } else {
       console.log('Invalido')
+      return;
     }
   }
 
@@ -42,6 +73,28 @@ export function FinanceEvolution() {
             </button>
           </div>
         </div>
+
+      </div>
+
+      <div className="mt-4 flex flex-col gap-4">
+        <div className="flex justify-center gap-6">
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-8" style={{ backgroundColor: '#00ED64' }}></div>
+            <label className="text-white">Receita</label>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-8" style={{ backgroundColor: '#DB3030' }}></div>
+            <label className="text-white">Despesa</label>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-8" style={{ backgroundColor: '#016BF8' }}></div>
+            <label className="text-white">Saldo</label>
+          </div>
+        </div>
+
+        <FinanceChart financeEvolutionData={financeEvolutionData} />
       </div>
     </div>
   )

@@ -1,0 +1,87 @@
+'use client'
+
+import { TrendingUp } from "lucide-react"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+
+interface FinanceChartProps {
+  financeEvolutionData: {
+    month: string;
+    income: number;
+    expense: number;
+    balance: number;
+  }[];
+}
+
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-1))",
+  },
+  mobile: {
+    label: "Mobile",
+    color: "hsl(var(--chart-2))",
+  },
+} satisfies ChartConfig
+
+export function FinanceChart({ financeEvolutionData }: FinanceChartProps) {
+  const monthNames = [
+    "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+    "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+  ]
+
+  const currentYear = new Date().getFullYear()
+  const fullData = Array.from({ length: 12 }, (_, index) => {
+    const month = String(index + 1).padStart(2, '0')
+    const key = `${currentYear}-${month}`
+
+    const existing = financeEvolutionData.find((d) => d.month === key)
+    return existing ?? {
+      month: key,
+      income: 0,
+      expense: 0,
+      balance: 0,
+    }
+  })
+
+  return (
+    <div>
+      <ChartContainer config={chartConfig}>
+        <BarChart accessibilityLayer data={fullData} barSize={20} barGap={2} barCategoryGap="50%">
+          <CartesianGrid vertical={false} horizontal={false} />
+          <XAxis
+            dataKey="month"
+            tickLine={false}
+            tickMargin={10}
+            axisLine={false}
+            tickFormatter={(value) => {
+              const [, month] = value.split("-")
+              const monthIndex = parseInt(month, 10) - 1
+              return monthNames[monthIndex] ?? value
+            }}
+          />
+
+          <YAxis
+            tickLine={false}
+            axisLine={false}
+            tickFormatter={(value) => `R$ ${value}`}
+          />
+
+          <ChartTooltip
+            cursor={false}
+            content={<ChartTooltipContent indicator="dashed" />}
+          />
+          <Bar dataKey="income" fill="#00ED64" radius={4} name="Receita" />
+          <Bar dataKey="expense" fill="#DB3030" radius={4} name="Despesa" />
+          <Bar dataKey="balance" fill="#016BF8" radius={4} name="Saldo" />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  )
+}
