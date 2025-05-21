@@ -53,13 +53,22 @@ export function FinanceChart({ financeEvolutionData }: FinanceChartProps) {
   return (
     <div>
       <ChartContainer config={chartConfig}>
-        <BarChart accessibilityLayer data={fullData} barSize={20} barGap={2} barCategoryGap="50%">
+        <BarChart
+          width={1000}
+          height={300}
+          accessibilityLayer
+          data={fullData}
+          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          barSize={20}
+          barGap={2}
+          barCategoryGap="50%"
+        >
           <CartesianGrid vertical={false} horizontal={false} />
           <XAxis
             dataKey="month"
-            tickLine={false}
+            tickLine={true}
             tickMargin={10}
-            axisLine={false}
+            axisLine={true}
             tickFormatter={(value) => {
               const [, month] = value.split("-")
               const monthIndex = parseInt(month, 10) - 1
@@ -68,8 +77,8 @@ export function FinanceChart({ financeEvolutionData }: FinanceChartProps) {
           />
 
           <YAxis
-            tickLine={false}
-            axisLine={false}
+            tickLine={true}
+            axisLine={true}
             tickFormatter={(value) => `R$ ${value}`}
           />
 
