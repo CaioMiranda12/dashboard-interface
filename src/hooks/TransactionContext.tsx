@@ -23,7 +23,11 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
   }
 
   const addTransaction = (newTransaction: Transaction) => {
-    setTransactions(allTransactions => [newTransaction, ...allTransactions]);
+    setTransactions(allTransactions => {
+      const updatedTransactions = [newTransaction, ...allTransactions];
+
+      return updatedTransactions.sort((firstTransaction, secondTransaction) => new Date(secondTransaction.date).getTime() - new Date(firstTransaction.date).getTime());
+    });
   };
 
   const removeTransaction = (transactionId: number) => {
@@ -34,7 +38,9 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
 
   const editTransaction = (updatedTransaction: Transaction) => {
     setTransactions(allTransactions => {
-      return allTransactions.map(transaction => transaction.id === updatedTransaction.id ? updatedTransaction : transaction)
+      const updatedTransactions = allTransactions.map(transaction => transaction.id === updatedTransaction.id ? updatedTransaction : transaction);
+
+      return updatedTransactions.sort((firstTransaction, secondTransaction) => new Date(secondTransaction.date).getTime() - new Date(firstTransaction.date).getTime());
     })
   }
 
