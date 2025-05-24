@@ -31,7 +31,6 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function FinanceChart({ financeEvolutionData }: FinanceChartProps) {
-  console.log(financeEvolutionData)
 
   const monthNames = [
     "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
