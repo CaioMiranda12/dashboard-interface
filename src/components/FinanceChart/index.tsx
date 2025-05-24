@@ -1,7 +1,7 @@
 'use client'
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, ReferenceLine, XAxis, YAxis } from "recharts"
 
 import {
   ChartConfig,
@@ -31,6 +31,8 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function FinanceChart({ financeEvolutionData }: FinanceChartProps) {
+  console.log(financeEvolutionData)
+
   const monthNames = [
     "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
     "Jul", "Ago", "Set", "Out", "Nov", "Dez"
@@ -81,12 +83,15 @@ export function FinanceChart({ financeEvolutionData }: FinanceChartProps) {
             tickLine={true}
             axisLine={true}
             tickFormatter={(value) => `R$ ${value}`}
+
           />
 
           <ChartTooltip
             cursor={false}
             content={<ChartTooltipContent indicator="dashed" />}
           />
+
+          <ReferenceLine y={0} stroke="#ccc" strokeDasharray="4 4" />
           <Bar dataKey="income" fill="#00ED64" radius={4} name="Receita" />
           <Bar dataKey="expense" fill="#DB3030" radius={4} name="Despesa" />
           <Bar dataKey="balance" fill="#016BF8" radius={4} name="Saldo" />

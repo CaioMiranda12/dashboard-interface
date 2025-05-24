@@ -3,7 +3,7 @@
 import { Search } from "lucide-react";
 import { Label } from "../label";
 import InputMask from '@mona-health/react-input-mask';
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { api } from "@/services/api";
 import { FinanceChart } from "../FinanceChart";
 import { Summary } from "@/types/summary";
@@ -46,6 +46,10 @@ export function FinanceEvolution() {
       return;
     }
   }
+
+  useEffect(() => {
+    handleSearch();
+  }, [])
 
   return (
     <div className="mt-4 p-4 bg-dark-ofc">
