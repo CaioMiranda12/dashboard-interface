@@ -16,6 +16,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 
+[data-state="open"] button.absolute.top-4.right-4 {
+  color: white;
+}
+
 @layer base {
   :root {
     --chart-1: 12 76% 61%;
