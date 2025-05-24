@@ -59,7 +59,7 @@ export function TransactionDialog() {
     amount: yup.number().transform((value, originalValue) => (
       String(originalValue).trim() === '' ? undefined : value
     )).positive('O valor deve ser maior que 0').required('Digite um valor'),
-    categoryId: yup.number().min(1).required('Digite uma categoria'),
+    categoryId: yup.number().min(1, 'Selecione uma categoria').required('Digite uma categoria'),
     type: yup.string().oneOf(['income', 'expense']).required('Escolha um tipo'),
     date: yup.string().optional(),
   });
@@ -156,6 +156,7 @@ export function TransactionDialog() {
             <select
               {...register('categoryId')}
               className="bg-black-ofc py-3 px-4">
+              <option value={0}>Escolha uma categoria...</option>
               {
                 categories.map(category => (
                   <option key={category.id} value={category.id}>{category.name}</option>
