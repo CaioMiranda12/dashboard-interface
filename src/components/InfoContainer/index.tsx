@@ -20,9 +20,9 @@ export function InfoContainer({ name, value, color, icon }: InfoContainerProps) 
       <span className="text-gray-300 text-base">{name}</span>
       {
         value > 0 ? (
-          <strong className="text-2xl" style={{ color }}>{`+${convertCurrency(value)}`}</strong>
+          <strong className="text-base md:text-2xl" style={{ color }}>{`+${convertCurrency(value)}`}</strong>
         ) : (
-          <strong className="text-2xl" style={{ color }}>{convertCurrency(value)}</strong>
+          <strong className="text-base md:text-2xl" style={{ color }}>{convertCurrency(value)}</strong>
         )
       }
     </div>

@@ -32,7 +32,7 @@ export function ContainerLeft() {
   }
 
   return (
-    <div className="col-span-2 p-2">
+    <div className="p-2 col-span-3 md:col-span-2">
       <div className="flex flex-col md:flex-row md:justify-between">
         <Label title="Saldo" description="Receitas e despesas no período" />
 
