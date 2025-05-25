@@ -21,11 +21,13 @@ import * as yup from "yup"
 import { CategoryListDialog } from "../categoryListDialog"
 
 interface categoryData {
+  id: number;
   name: string;
   color: string;
 }
 
-export function CategoryDialog() {
+export function EditCategoryDialog({ id, name, color }: categoryData) {
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const schema = yup.object({
@@ -42,11 +44,15 @@ export function CategoryDialog() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      name: name,
+      color: color
+    }
   })
-  const onSubmit = async (data: categoryData) => {
+  const onSubmit = async (data: { name: string, color: string }) => {
 
     try {
-      const { status } = await api.post('/category', {
+      const { status } = await api.patch(`/category/${id}`, {
         name: data.name,
         color: data.color
       },
@@ -55,9 +61,11 @@ export function CategoryDialog() {
         })
 
       if (status === 201 || status === 200) {
-        toast.success('Categoria criada com sucesso');
+        toast.success('Categoria atualizada com sucesso');
         reset();
         setIsOpen(false);
+
+
       }
 
       else if (status === 409) {
@@ -73,16 +81,17 @@ export function CategoryDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger className="text-sm text-[#04141C] font-semibold p-2 rounded-lg bg-emerald-400 cursor-pointer hover:bg-emerald-600 transition-all duration-300">
-        Nova categoria
+      <DialogTrigger className="flex items-center gap-4">
+        <SlSettings size={20} color="#fff" />
+        <span className="text-base md:text-lg">{name}</span>
       </DialogTrigger>
       <DialogContent className="bg-[#001E2B] text-white">
         <DialogHeader>
           <DialogTitle className="text-gray-200 text-2xl flex flex-col gap-2">
-            Nova categoria
+            Editar categoria
           </DialogTitle>
           <DialogDescription className="text-gray-300 text-base">
-            Crie uma nova categoria para suas transações
+            Edite o nome ou a cor da sua categoria
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -92,6 +101,7 @@ export function CategoryDialog() {
               className="bg-black-ofc py-3 px-4"
               placeholder="Nome da categoria..."
               {...register('name')}
+
             />
             <p className="text-red-400 font-semibold mt-1">{errors.name?.message}</p>
 
@@ -103,7 +113,6 @@ export function CategoryDialog() {
               type="color"
               className="bg-black-ofc py-3 px-4"
               {...register('color')}
-              defaultValue='#FFFFFF'
             />
             <p className="text-red-400 font-semibold mt-1">{errors.color?.message}</p>
 
