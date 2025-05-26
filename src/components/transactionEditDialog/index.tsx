@@ -31,12 +31,6 @@ export function TransactionEditDialog({ transaction }: TransactionEditProps) {
 
   const { editTransaction } = useTransaction();
 
-  useEffect(() => {
-    if (!isOpen) return;
-
-    getCategories()
-  }, [isOpen])
-
   const schema = yup.object({
     title: yup.string().required('O nome é obrigatório'),
     description: yup.string().min(6, 'A descrição deve ter no mínimo 6 caracteres').required('Digite uma descrição'),
@@ -52,6 +46,7 @@ export function TransactionEditDialog({ transaction }: TransactionEditProps) {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -63,6 +58,25 @@ export function TransactionEditDialog({ transaction }: TransactionEditProps) {
       date: transaction.date.split('T')[0],
     }
   })
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    getCategories()
+  }, [isOpen])
+
+  useEffect(() => {
+    if (isOpen && categories.length > 0) {
+      reset({
+        title: transaction.title,
+        description: transaction.description,
+        amount: transaction.amount,
+        categoryId: transaction.Category.id,
+        type: transaction.type,
+        date: transaction.date.split('T')[0],
+      })
+    }
+  }, [isOpen, categories, transaction, reset])
 
   type FormData = yup.InferType<typeof schema>
 

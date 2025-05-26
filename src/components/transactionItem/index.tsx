@@ -13,11 +13,16 @@ import {
 import { DeleteTransactionButton } from "../deleteTransactionButton";
 import { useState } from "react";
 import { TransactionEditDialog } from "../transactionEditDialog";
+import { useCategory } from "@/hooks/CategoryContext";
 
 
 interface TransactionItemProps extends Transaction { }
 
 export function TransactionItem({ id, title, date, Category, amount, description, type }: TransactionItemProps) {
+
+  const { categories } = useCategory();
+
+  const updatedCategory = categories.find(cat => cat.id === Category.id) || Category;
 
   return (
     <Dialog>
@@ -48,10 +53,10 @@ export function TransactionItem({ id, title, date, Category, amount, description
             }
             <span
               style={{
-                color: Category.color,
-                borderColor: Category.color
+                color: updatedCategory.color,
+                borderColor: updatedCategory.color
               }}
-              className="border rounded-[2px] p-1 uppercase text-xs">{Category.name}</span>
+              className="border rounded-[2px] p-1 uppercase text-xs">{updatedCategory.name}</span>
           </div>
 
         </div>
@@ -59,7 +64,7 @@ export function TransactionItem({ id, title, date, Category, amount, description
       <DialogContent className="bg-[#001E2B] text-white">
         <DialogHeader>
           <DialogTitle className="text-gray-200 flex flex-col gap-2">
-            <span className="text-sm text-gray-400">#{id.toString().padStart(4, '0')} - {Category.name}</span>
+            <span className="text-sm text-gray-400">#{id.toString().padStart(4, '0')} - {updatedCategory.name}</span>
             {title}
             {
               type === 'expense' && (
