@@ -19,6 +19,7 @@ import { SlSettings } from "react-icons/sl";
 
 import * as yup from "yup"
 import { CategoryListDialog } from "../categoryListDialog"
+import { useCategory } from "@/hooks/CategoryContext"
 
 interface categoryData {
   id: number;
@@ -29,6 +30,7 @@ interface categoryData {
 export function EditCategoryDialog({ id, name, color }: categoryData) {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { updateCategory } = useCategory();
 
   const schema = yup.object({
     name: yup.string().required('O nome é obrigatório'),
@@ -49,12 +51,12 @@ export function EditCategoryDialog({ id, name, color }: categoryData) {
       color: color
     }
   })
-  const onSubmit = async (data: { name: string, color: string }) => {
+  const onSubmit = async (categoryData: { name: string, color: string }) => {
 
     try {
-      const { status } = await api.patch(`/category/${id}`, {
-        name: data.name,
-        color: data.color
+      const { status, data } = await api.patch(`/category/${id}`, {
+        name: categoryData.name,
+        color: categoryData.color
       },
         {
           validateStatus: () => true
@@ -64,8 +66,7 @@ export function EditCategoryDialog({ id, name, color }: categoryData) {
         toast.success('Categoria atualizada com sucesso');
         reset();
         setIsOpen(false);
-
-
+        updateCategory(data)
       }
 
       else if (status === 409) {

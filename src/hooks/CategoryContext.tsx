@@ -13,6 +13,7 @@ interface Category {
 interface CategoryContextType {
   categories: Category[],
   getCategories: () => Promise<void>
+  updateCategory: (updatedCategory: Category) => void
 }
 
 const CategoryContext = createContext({} as CategoryContextType);
@@ -24,25 +25,26 @@ export const CategoryProvider = ({ children }: { children: ReactNode }) => {
     try {
       const res = await api.get('/category');
       setCategories(res.data);
-      toast.success('oi')
+      // toast.success('oi')
     } catch (error) {
       toast.error("Erro ao buscar categorias");
     }
   }
 
-  const editCategory = async () => {
-    try {
-
-    } catch (error) {
-
-    }
+  const updateCategory = (updatedCategory: Category) => {
+    setCategories((allCategories => (
+      allCategories.map(cat => (
+        cat.id === updatedCategory.id ? { ...cat, ...updatedCategory } : cat
+      ))
+    )))
   }
 
   return (
     <CategoryContext.Provider
       value={{
         categories,
-        getCategories
+        getCategories,
+        updateCategory
       }}
     >
       {children}
