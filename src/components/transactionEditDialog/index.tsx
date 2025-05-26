@@ -20,15 +20,9 @@ import { toast } from "react-toastify"
 
 import * as yup from "yup"
 
-interface Category {
-  name: string;
-  id: number;
-}
-
 interface TransactionEditProps {
   transaction: Transaction;
 }
-
 
 
 export function TransactionEditDialog({ transaction }: TransactionEditProps) {
@@ -38,9 +32,10 @@ export function TransactionEditDialog({ transaction }: TransactionEditProps) {
   const { editTransaction } = useTransaction();
 
   useEffect(() => {
+    if (!isOpen) return;
 
     getCategories()
-  }, [])
+  }, [isOpen])
 
   const schema = yup.object({
     title: yup.string().required('O nome é obrigatório'),
@@ -85,6 +80,7 @@ export function TransactionEditDialog({ transaction }: TransactionEditProps) {
         editTransaction(response.data);
         toast.success('Transação atualizada com sucesso')
         setIsOpen(false)
+
       }
       else {
         toast.error('Erro ao atualizar transação')

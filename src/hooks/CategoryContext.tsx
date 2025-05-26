@@ -25,7 +25,6 @@ export const CategoryProvider = ({ children }: { children: ReactNode }) => {
     try {
       const res = await api.get('/category');
       setCategories(res.data);
-      // toast.success('oi')
     } catch (error) {
       toast.error("Erro ao buscar categorias");
     }
