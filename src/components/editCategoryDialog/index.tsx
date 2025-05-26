@@ -129,7 +129,7 @@ export function EditCategoryDialog({ id, name, color }: categoryData) {
               <button
                 type="submit"
                 className="border border-primary-ofc bg-primary-ofc px-4 py-2 text-dark-ofc font-semibold rounded-sm cursor-pointer hover:opacity-80 active:opacity-60">
-                Cadastrar
+                Confirmar
               </button>
             </div>
           </div>

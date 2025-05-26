@@ -10,35 +10,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { useEffect, useState } from "react";
-import { api } from "@/services/api";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { EditCategoryDialog } from "../editCategoryDialog";
-
-interface Category {
-  name: string;
-  id: number;
-  color: string;
-}
+import { useCategory } from "@/hooks/CategoryContext";
 
 export function CategoryListDialog() {
-  const [categories, setCategories] = useState<Category[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { categories, getCategories } = useCategory();
 
   useEffect(() => {
     if (!isOpen) return;
 
-    async function getCategories() {
-      try {
-        const res = await api.get('/category');
-        setCategories(res.data);
-      } catch (error) {
-        console.error("Erro ao buscar categorias", error);
-      }
-    }
-
     getCategories()
-
-    console.log(categories)
   }, [isOpen])
 
   return (

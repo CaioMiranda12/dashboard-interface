@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { useCategory } from "@/hooks/CategoryContext"
 import { useTransaction } from "@/hooks/TransactionContext"
 import { api } from "@/services/api"
 import { Transaction } from "@/types/transaction"
@@ -31,20 +32,12 @@ interface TransactionEditProps {
 
 
 export function TransactionEditDialog({ transaction }: TransactionEditProps) {
-  const [categories, setCategories] = useState<Category[]>([])
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { categories, getCategories } = useCategory();
 
   const { editTransaction } = useTransaction();
 
   useEffect(() => {
-    async function getCategories() {
-      try {
-        const res = await api.get('/category');
-        setCategories(res.data);
-      } catch (error) {
-        console.error("Erro ao buscar categorias", error);
-      }
-    }
 
     getCategories()
   }, [])
