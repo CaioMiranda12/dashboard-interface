@@ -4,8 +4,9 @@ import { Search } from "lucide-react";
 import { InputDate } from "../InputDate";
 import { Label } from "../label";
 import { SummaryContainer } from "../SummaryContainer";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FinanceEvolution } from "../FinanceEvolution";
+import { toast } from "react-toastify";
 
 
 
@@ -25,9 +26,13 @@ export function ContainerLeft() {
 
   const handleSearch = () => {
     if (startDate && endDate) {
-      const start = startDate.toISOString().split("T")[0];
-      const end = endDate.toISOString().split("T")[0];
-      setFilters({ startDate: start, endDate: end })
+      if (startDate <= endDate) {
+        const start = startDate.toISOString().split("T")[0];
+        const end = endDate.toISOString().split("T")[0];
+        setFilters({ startDate: start, endDate: end })
+      } else {
+        toast.error('Data de inicio maior que a data de fim!')
+      }
     }
   }
 
