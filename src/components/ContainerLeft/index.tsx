@@ -30,6 +30,7 @@ export function ContainerLeft() {
         const start = startDate.toISOString().split("T")[0];
         const end = endDate.toISOString().split("T")[0];
         setFilters({ startDate: start, endDate: end })
+        toast.success('Relatório gerado com base nas datas selecionadas')
       } else {
         toast.error('Data de inicio maior que a data de fim!')
       }
