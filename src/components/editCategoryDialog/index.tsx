@@ -9,12 +9,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 import { api } from "@/services/api"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { SlSettings } from "react-icons/sl";
+import { FaTrash } from "react-icons/fa";
+
 
 
 import * as yup from "yup"
@@ -30,7 +45,7 @@ interface categoryData {
 export function EditCategoryDialog({ id, name, color }: categoryData) {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { updateCategory } = useCategory();
+  const { updateCategory, deleteCategory } = useCategory();
 
   const schema = yup.object({
     name: yup.string().required('O nome é obrigatório'),
@@ -80,12 +95,57 @@ export function EditCategoryDialog({ id, name, color }: categoryData) {
     }
   }
 
+  async function handleDeleteCategory() {
+    try {
+      const { status } = await api.delete(`/category/${id}`, {
+        validateStatus: () => true
+      })
+
+      if (status === 200) {
+        deleteCategory(id)
+        toast.success('Categoria deletada com sucesso')
+      }
+
+      else if (status === 400) {
+        toast.error('Categoria em uso por transações.');
+      }
+
+      else {
+        throw new Error();
+      }
+    } catch (error) {
+      toast.error('Falha ao deletar categoria, tente novamente!')
+    }
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger className="flex items-center gap-4">
-        <SlSettings size={20} color="#fff" />
-        <span className="text-base md:text-lg">{name}</span>
-      </DialogTrigger>
+      <div className="flex items-center gap-2">
+
+        <AlertDialog>
+          <AlertDialogTrigger>
+            <FaTrash size={20} color="#ff7979" />
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Você realmente quer deletar essa categoria?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Esta ação não pode ser desfeita. Isso excluirá permanentemente sua categoria
+                e removerá seus dados de nossos servidores.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDeleteCategory}>Deletar</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
+        <DialogTrigger className="flex items-center gap-4">
+          <SlSettings size={20} color="#fff" />
+          <span className="text-base md:text-lg">{name}</span>
+        </DialogTrigger>
+      </div>
       <DialogContent className="bg-[#001E2B] text-white">
         <DialogHeader>
           <DialogTitle className="text-gray-200 text-2xl flex flex-col gap-2">

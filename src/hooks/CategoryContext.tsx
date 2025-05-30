@@ -14,6 +14,7 @@ interface CategoryContextType {
   categories: Category[],
   getCategories: () => Promise<void>
   updateCategory: (updatedCategory: Category) => void
+  deleteCategory: (categoryId: Number) => void
 }
 
 const CategoryContext = createContext({} as CategoryContextType);
@@ -38,12 +39,19 @@ export const CategoryProvider = ({ children }: { children: ReactNode }) => {
     )))
   }
 
+  const deleteCategory = (categoryId: Number) => {
+    const filteredCategories = categories.filter(category => category.id !== categoryId);
+
+    setCategories(filteredCategories);
+  }
+
   return (
     <CategoryContext.Provider
       value={{
         categories,
         getCategories,
-        updateCategory
+        updateCategory,
+        deleteCategory
       }}
     >
       {children}
