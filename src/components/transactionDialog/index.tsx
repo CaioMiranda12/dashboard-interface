@@ -108,7 +108,7 @@ export function TransactionDialog() {
           Nova transação
         </button>
       </DialogTrigger>
-      <DialogContent className="bg-[#001E2B] text-white">
+      <DialogContent className="bg-dark-ofc text-white">
         <DialogHeader>
           <DialogTitle className="text-gray-200 text-2xl flex flex-col gap-2">
             Nova transação

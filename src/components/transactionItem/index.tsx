@@ -11,7 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { DeleteTransactionButton } from "../deleteTransactionButton";
-import { useState } from "react";
 import { TransactionEditDialog } from "../transactionEditDialog";
 import { useCategory } from "@/hooks/CategoryContext";
 
@@ -61,7 +60,7 @@ export function TransactionItem({ id, title, date, Category, amount, description
 
         </div>
       </DialogTrigger>
-      <DialogContent className="bg-[#001E2B] text-white">
+      <DialogContent className="bg-dark-ofc text-white">
         <DialogHeader>
           <DialogTitle className="text-gray-200 flex flex-col gap-2">
             <span className="text-sm text-gray-400">#{id.toString().padStart(4, '0')} - {updatedCategory.name}</span>

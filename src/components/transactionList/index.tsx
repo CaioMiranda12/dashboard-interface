@@ -29,7 +29,7 @@ export function TransactionList() {
           placeholder="Procurar transação..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="bg-[#04141C] w-full rounded-sm text-white px-2"
+          className="bg-[#12142b] w-full rounded-sm text-white px-2"
         />
 
         <button

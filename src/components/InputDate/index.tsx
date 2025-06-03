@@ -27,7 +27,7 @@ export function InputDate({ name, selectedDate, defaultDate, onDateChange }: Inp
         <PopoverTrigger asChild>
           <Button
             className={cn(
-              "w-[150px] justify-start text-left font-normal bg-[#001E2B] hover:bg-[#001E2B] border-none",
+              "w-[150px] justify-start text-left font-normal bg-[#222855] hover:bg-[#A3A7C2] border-none",
               !selectedDate && "text-muted-foreground"
             )}
           >

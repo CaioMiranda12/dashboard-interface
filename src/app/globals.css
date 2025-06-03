@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 body {
-  background-color: #04141C;
+  background-color: #13162E;
 }
 
 input {
@@ -40,9 +40,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 
 @theme inline {
-  --color-black-ofc: #04141C;
+  --color-black-ofc: #222855;
   --color-primary-ofc: #00ED64;
-  --color-dark-ofc: #001E2B;
+  --color-dark-ofc: #1A1E3F;
 
 
   --radius-sm: calc(var(--radius) - 4px);

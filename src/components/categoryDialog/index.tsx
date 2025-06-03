@@ -76,7 +76,7 @@ export function CategoryDialog() {
       <DialogTrigger className="text-sm text-[#04141C] font-semibold p-2 rounded-lg bg-emerald-400 cursor-pointer hover:bg-emerald-600 transition-all duration-300">
         Nova categoria
       </DialogTrigger>
-      <DialogContent className="bg-[#001E2B] text-white">
+      <DialogContent className="bg-dark-ofc text-white">
         <DialogHeader>
           <DialogTitle className="text-gray-200 text-2xl flex flex-col gap-2">
             Nova categoria

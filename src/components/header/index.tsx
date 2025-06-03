@@ -27,7 +27,7 @@ export function Header() {
   if (pathname === '/cadastro' || pathname === '/login') return null;
 
   return (
-    <header className="flex justify-between items-center h-20 px-2 xl:px-8 bg-[#04141C] max-w-screen-xl mx-auto">
+    <header className="flex justify-between items-center h-20 px-2 xl:px-8 bg-[#13162E] max-w-screen-xl mx-auto">
       <Logo />
 
       <div className="flex xl:gap-16">
