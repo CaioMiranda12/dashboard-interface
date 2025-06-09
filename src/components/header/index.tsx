@@ -18,6 +18,7 @@ import { CircleUserRound, LogOut, Trash2, UserPen } from "lucide-react";
 import { useUser } from "@/hooks/UserContext";
 import { CategoryDialog } from "../categoryDialog";
 import { TransactionDialog } from "../transactionDialog";
+import Link from "next/link";
 
 
 export function Header() {
@@ -28,7 +29,9 @@ export function Header() {
 
   return (
     <header className="flex justify-between items-center h-20 px-2 xl:px-8 bg-[#13162E] max-w-screen-xl mx-auto">
-      <Logo />
+      <Link href='/'>
+        <Logo />
+      </Link>
 
       <div className="flex xl:gap-16">
         <div className="flex gap-4 text-white ml-4">
@@ -47,17 +50,19 @@ export function Header() {
             <DropdownMenuContent>
               <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <CircleUserRound />
                 <span>Perfil</span>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuItem>
                 <UserPen />
-                <span>Editar conta</span>
+                <Link href='/user'>
+                  Editar conta
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Trash2 />
-                <span>Deletar conta</span>
+                <span>Deletar Conta</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={logoutUser}>
