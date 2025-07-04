@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FinDash$ Dashboard - Sistema de gestor financeiro (Front End)
 
-## Getting Started
+Este projeto consiste em um organizador financeiro pessoal, fácil, prático e seguro de se utilizar, com autenticação JWT e demonstração de dados através de gráficos.
 
-First, run the development server:
+## ℹ️ Sobre o Projeto
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Sistema de gestor financeiro, focado em praticidade e visual leve e agradável. Permite gerenciar transações, categorias e visualizar gráficos com resumos mensais e anuais, além de apresentar um sistema de login.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tecnologias Utilizadas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Front-End: 
+- React, Next.js, TypeScript, Tailwind CSS, ShadCN UI, Axios, Context API.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Back-End: 
+- Node.js, Express, PostgreSQL, Prisma, Docker, JWT, Yup, CORS, Bcrypt 
+<br><br>
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Imagens
+<img src='./src/assets/register.png' alt='imagem da tela de cadastro' />
+<img src='./src/assets/login.png' alt='imagem da tela de login' />
+<img src='./src/assets/home.png' alt='imagem da tela de home' />
+<img src='./src/assets/newTrasnaction.png' alt='imagem da tela de criar nova transação' />
+<img src='./src/assets/newCategory.png' alt='imagem da tela de criar nova categoria' />
