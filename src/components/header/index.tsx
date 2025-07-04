@@ -60,10 +60,10 @@ export function Header() {
                   Editar conta
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <Trash2 />
                 <span>Deletar Conta</span>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={logoutUser}>
                 <LogOut />
