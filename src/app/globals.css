@@ -7,6 +7,10 @@ body {
   background-color: #13162E;
 }
 
+button {
+  cursor: pointer;
+}
+
 input {
   outline: none;
 }
