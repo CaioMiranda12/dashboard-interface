@@ -14,7 +14,7 @@ import { useTransaction } from "@/hooks/TransactionContext"
 import { api } from "@/services/api"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
+import { useForm, useWatch } from "react-hook-form"
 import { toast } from "react-toastify"
 
 import * as yup from "yup"
@@ -55,6 +55,7 @@ export function TransactionDialog() {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -63,6 +64,8 @@ export function TransactionDialog() {
       date: new Date().toISOString().split('T')[0],
     }
   })
+
+  const type = useWatch({ control, name: 'type' })
 
   const onSubmit = async (data: transactionData) => {
 
@@ -121,7 +124,7 @@ export function TransactionDialog() {
           <div className="flex flex-col">
             <label className="text-sm mb-1">Nome</label>
             <input
-              className="bg-black-ofc py-3 px-4"
+              className={`bg-black-ofc py-3 px-4 ${errors.title ? 'border border-red-400 rounded-md' : ''}`}
               placeholder="Nome da transação..."
               {...register('title')}
             />
@@ -131,7 +134,7 @@ export function TransactionDialog() {
           <div className="flex flex-col">
             <label className="text-sm mb-1">Descrição</label>
             <input
-              className="bg-black-ofc py-3 px-4"
+              className={`bg-black-ofc py-3 px-4 ${errors.title ? 'border border-red-400 rounded-md' : ''}`}
               placeholder="Descrição da transação..."
               {...register('description')}
             />
@@ -142,7 +145,8 @@ export function TransactionDialog() {
             <label className="text-sm mb-1">Categoria</label>
             <select
               {...register('categoryId')}
-              className="bg-black-ofc py-3 px-4">
+              className={`bg-black-ofc py-3 px-4 ${errors.title ? 'border border-red-400 rounded-md' : ''}`}
+            >
               <option value={0}>Escolha uma categoria...</option>
               {
                 categories.map(category => (
@@ -158,7 +162,7 @@ export function TransactionDialog() {
             <input
               type="number"
               step='any'
-              className="bg-black-ofc py-3 px-4"
+              className={`bg-black-ofc py-3 px-4 ${errors.title ? 'border border-red-400 rounded-md' : ''}`}
               placeholder="Valor da transação..."
               {...register('amount')}
             />
@@ -170,31 +174,26 @@ export function TransactionDialog() {
             <input
               type="date"
               {...register('date')}
-              className="bg-black-ofc w-[180px] py-3 px-4 text-white border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className={`bg-black-ofc w-[180px] py-3 px-4 text-white border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400 ${errors.date ? 'border-red-400' : 'border-gray-700'}`}
             />
             <p className="text-red-400 font-semibold mt-1">{errors.date?.message}</p>
           </div>
 
 
-          <div className="flex flex-col gap-3">
-            <label className="flex items-center gap-1">
-              <input
-                type="radio"
-                value="income"
-                {...register('type')}
-              />
+          <div className="flex gap-3">
+            <label className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-md cursor-pointer border transition-all
+    ${type === 'income' ? 'border-emerald-400 text-emerald-400' : 'border-gray-600 text-gray-400'}`}>
+              <input type="radio" value="income" className="hidden" {...register('type')} />
               Receita
             </label>
 
-            <label className="flex items-center gap-1">
-              <input
-                type="radio"
-                value="expense"
-                {...register('type')}
-              />
+            <label className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-md cursor-pointer border transition-all
+    ${type === 'expense' ? 'border-red-400 text-red-400' : 'border-gray-600 text-gray-400'}`}>
+              <input type="radio" value="expense" className="hidden" {...register('type')} />
               Despesa
             </label>
           </div>
+          <p className="text-red-400 font-semibold mt-1">{errors.type?.message}</p>
 
 
 
