@@ -43,7 +43,6 @@ export function InputDate({ name, selectedDate, defaultDate, onDateChange }: Inp
             selected={selectedDate ?? undefined}
             onSelect={(date) => onDateChange(date ?? null)}
             locale={ptBR}
-            initialFocus
           />
         </PopoverContent>
       </Popover>
