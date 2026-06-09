@@ -9,47 +9,33 @@ import { FinanceChart } from "../FinanceChart";
 import { Summary } from "@/types/summary";
 
 export function FinanceEvolution() {
-  const [year, setYear] = useState<string>(new Date().getFullYear().toLocaleString())
+  const [year, setYear] = useState<string>(new Date().getFullYear().toString())
   const [financeEvolutionData, setFinanceEvolutionData] = useState<
     { month: string; income: number; expense: number; balance: number }[]
   >([]);
 
-  async function handleSearch() {
-    if (year.length === 4) {
-
-      try {
-        const { data } = await api.get('/summary/year', {
-          params: {
-            year: year
-          }
-        })
-
-        const formattedData = Object.entries(data).map(([month, values]) => ({
-          month,
-          income: values.income,
-          expense: values.expense,
-          balance: values.balance
-
-        }));
-
-        setFinanceEvolutionData(formattedData);
-
-      } catch (error) {
-        console.log('Falha ao carregar transaçoes anuais')
-        return;
-      }
-
-
-
-    } else {
-      console.log('Invalido')
-      return;
+  async function fetchEvolution(yearValue: string) {
+    if (yearValue.length !== 4) return;
+    try {
+      const { data } = await api.get('/summary/year', { params: { year: yearValue } });
+      const formattedData = Object.entries(data).map(([month, values]: [string, any]) => ({
+        month,
+        income: values.income,
+        expense: values.expense,
+        balance: values.balance
+      }));
+      setFinanceEvolutionData(formattedData);
+    } catch {
+      console.log('Falha ao carregar transações anuais');
     }
   }
 
+
   useEffect(() => {
-    handleSearch();
+    fetchEvolution(year);
   }, [])
+
+  const handleSearch = () => fetchEvolution(year);
 
   return (
     <div className="mt-4 p-4 bg-dark-ofc">
