@@ -12,6 +12,13 @@ interface SummaryContainerProps {
   filters: { startDate: string, endDate: string } | null;
 }
 
+const getDateRange = (filters: { startDate: string, endDate: string } | null) => {
+  const now = new Date();
+  const start = filters?.startDate ? new Date(filters.startDate) : new Date(now.getFullYear(), now.getMonth(), 1);
+  const end = filters?.endDate ? new Date(filters.endDate) : new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+  return { start, end };
+}
+
 export function SummaryContainer({ filters }: SummaryContainerProps) {
   const { transactions } = useTransaction();
   const [summary, setSummary] = useState<Summary>({
@@ -25,14 +32,7 @@ export function SummaryContainer({ filters }: SummaryContainerProps) {
   useEffect(() => {
     async function getSummary() {
       try {
-        const now = new Date();
-
-        const defaultStart = new Date(now.getFullYear(), now.getMonth(), 1); // primeiro dia do mês
-        const defaultEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59); // último dia do mês
-
-        const start = filters?.startDate ? new Date(filters.startDate) : defaultStart;
-        const end = filters?.endDate ? new Date(filters.endDate) : defaultEnd;
-
+        const { start, end } = getDateRange(filters);
 
         const { data } = await api.get('/summary', {
           params: {
@@ -51,16 +51,7 @@ export function SummaryContainer({ filters }: SummaryContainerProps) {
   }, [transactions, filters]);
 
   useEffect(() => {
-    if (!filters?.startDate || !filters?.endDate) {
-      setFilteredExpenses([]);
-      return;
-    }
-
-    const start = new Date(filters.startDate)
-    const end = new Date(filters.endDate)
-    end.setHours(23, 59, 59, 999);
-
-
+    const { start, end } = getDateRange(filters);
 
     const filtered = transactions.filter(transaction => {
       const transactionDate = new Date(transaction.date)
