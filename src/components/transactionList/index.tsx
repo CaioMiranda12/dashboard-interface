@@ -38,12 +38,16 @@ export function TransactionList() {
           <Search />
         </button>
       </div>
-      <div className="flex flex-col gap-4 mt-6">
-        {
+      <div className="flex flex-col gap-4 mt-6 overflow-y-auto max-h-[600px] pr-1">
+        {filteredTransactions.length === 0 ? (
+          <p className="text-gray-400 text-sm text-center mt-6">
+            {searchTerm ? 'Nenhuma transação encontrada.' : 'Nenhuma transação no período.'}
+          </p>
+        ) : (
           filteredTransactions.map(transaction => (
-            <TransactionItem key={transaction.id} id={transaction.id} title={transaction.title} amount={transaction.amount} Category={transaction.Category} date={transaction.date} description={transaction.description} type={transaction.type} />
+            <TransactionItem key={transaction.id} {...transaction} />
           ))
-        }
+        )}
       </div>
     </>
   )
