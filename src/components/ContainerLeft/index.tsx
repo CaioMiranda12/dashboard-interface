@@ -8,28 +8,27 @@ import { useState } from "react";
 import { FinanceEvolution } from "../FinanceEvolution";
 import { toast } from "react-toastify";
 
-
+const now = new Date();
+const DEFAULT_START_DATE = new Date(now.getFullYear(), now.getMonth(), 1);
+const DEFAULT_END_DATE = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
 
 export function ContainerLeft() {
+  const toDateString = (date: Date) => date.toISOString().split('T')[0];
 
-
-  const now = new Date();
-  const defaultStartDate = new Date(now.getFullYear(), now.getMonth(), 1);
-  const defaultEndDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
-
-  const [startDate, setStartDate] = useState<Date | null>(defaultStartDate);
-  const [endDate, setEndDate] = useState<Date | null>(defaultEndDate);
+  const [startDate, setStartDate] = useState<Date | null>(DEFAULT_START_DATE);
+  const [endDate, setEndDate] = useState<Date | null>(DEFAULT_END_DATE);
   const [filters, setFilters] = useState<{ startDate: string, endDate: string } | null>({
-    startDate: defaultStartDate.toISOString().split('T')[0],
-    endDate: defaultEndDate.toISOString().split('T')[0]
+    startDate: toDateString(DEFAULT_START_DATE),
+    endDate: toDateString(DEFAULT_END_DATE)
   });
 
   const handleSearch = () => {
     if (startDate && endDate) {
       if (startDate <= endDate) {
-        const start = startDate.toISOString().split("T")[0];
-        const end = endDate.toISOString().split("T")[0];
-        setFilters({ startDate: start, endDate: end })
+        setFilters({
+          startDate: toDateString(startDate),
+          endDate: toDateString(endDate)
+        });
         toast.success('Relatório gerado com base nas datas selecionadas')
       } else {
         toast.error('Data de inicio maior que a data de fim!')
@@ -44,8 +43,8 @@ export function ContainerLeft() {
 
         <div className="flex gap-4">
           <div className="flex gap-4">
-            <InputDate name="Início" selectedDate={startDate} onDateChange={setStartDate} defaultDate={defaultStartDate} />
-            <InputDate name="Fim" selectedDate={endDate} onDateChange={setEndDate} defaultDate={defaultEndDate} />
+            <InputDate name="Início" selectedDate={startDate} onDateChange={setStartDate} defaultDate={DEFAULT_START_DATE} />
+            <InputDate name="Fim" selectedDate={endDate} onDateChange={setEndDate} defaultDate={DEFAULT_END_DATE} />
           </div>
 
           <div className="flex items-end">

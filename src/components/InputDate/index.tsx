@@ -1,6 +1,8 @@
 'use client'
 
 import { format } from "date-fns"
+import { ptBR } from "date-fns/locale"
+
 import { CalendarIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -32,7 +34,7 @@ export function InputDate({ name, selectedDate, defaultDate, onDateChange }: Inp
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {selectedDate ? format(selectedDate, "PPP") : format(defaultDate, "PPP")}
+            {selectedDate ? format(selectedDate, "dd/MM/yyyy", { locale: ptBR }) : format(defaultDate, "dd/MM/yyyy", { locale: ptBR })}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
@@ -40,6 +42,7 @@ export function InputDate({ name, selectedDate, defaultDate, onDateChange }: Inp
             mode="single"
             selected={selectedDate ?? undefined}
             onSelect={(date) => onDateChange(date ?? null)}
+            locale={ptBR}
             initialFocus
           />
         </PopoverContent>
